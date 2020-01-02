@@ -11,7 +11,7 @@ for the [Atlanta MongoDB Atlas Workshop at Techrise](https://atlmdbatlasworkshop
 #### Overview
 
 
-### Required Prerequisites
+#### Required Prerequisites
 
 * To use MongoDB Atlas, you **must** be able to make outgoing requests from your computer
 to MongoDB Atlas services which will be running on port 27017.  Please confirm that port
@@ -56,3 +56,49 @@ tool that is part of the MongoDB Atlas User Interface.
 5.  MongoDB Charts
 
 6.  Code Samples
+
+---
+
+## MongoDB Atlas Workshop 
+
+## 1.  Deploy a MongoDB Atlas Cluster 
+### Lab 1
+Complete the required prerequisites at the top of this page.
+
+---
+
+## 2.  Query and Manage Data 
+### Lab 1 - Basic Find Queries 
+
+### Lab 2 - Aggregation Framework Example
+
+### Lab 3 - Query Performance/Indexes 
+
+---
+
+## 3.  MongoDB Atlas Operations 
+### Lab 1 - Continuous Backup
+
+### Lab 2 - Cluster Snapshots 
+
+### Lab 3 - Point-in-Time Restore
+
+---
+
+## 4.  MongoDB Stitch
+### Lab 1 - Webhooks
+
+### Lab 2 - Query Anywhere 
+
+### Lab 3 - Triggers
+
+---
+
+## 5.  MongoDB Charts
+### Lab 1 - 
+
+### Lab 2 - 
+
+---
+
+## 6.  Code Samples
