@@ -39,24 +39,24 @@ tool that is part of the MongoDB Atlas User Interface.
     * Create cluster
     * Load/View data in MongoDB Sandbox Cluster
     
-2.  Query and Manage Data
+2.  Query and Manage Data -- Blaine
     * Basic Find Queries
     * Aggregation Framework Example
     * Query Performance/Indexes (includes Performance Advisor Demo)
     
-3.  MongoDB Atlas Operations
+3.  MongoDB Atlas Operations -- Marcelo
     * Continuous Backup
     * Cluster Snapshots
     * Demo of Point-in-Time restore
     
-4.  MongoDB Stitch
+4.  MongoDB Stitch -- Blaine
     * Webhooks
     * Query Anywhere
     * Triggers
     
-5.  MongoDB Charts
+5.  MongoDB Charts -- Marcelo
 
-6.  Code Samples
+6.  Code Samples -- Blaine
 
 ---
 
