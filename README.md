@@ -46,6 +46,7 @@ tool that is part of the MongoDB Atlas User Interface.
     
 3.  MongoDB Atlas Operations
     * Continuous Backup
+    * Cluster Snapshots
     * Demo of Point-in-Time restore
     
 4.  MongoDB Stitch
