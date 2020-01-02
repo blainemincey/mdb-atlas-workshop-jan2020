@@ -60,7 +60,7 @@ tool that is part of the MongoDB Atlas User Interface.
 
 ---
 
-## MongoDB Atlas Workshop 
+# MongoDB Atlas Workshop 
 
 ## 1.  Deploy a MongoDB Atlas Cluster 
 ### Lab 1
@@ -98,7 +98,7 @@ should have a list of the documents similar to that below:
 
 ![](img/MongoDB_Compass_-_browse.jpg)  
 
-There is simply an **_id** field, a **theaterId** field, and a location object.  Wait, did we just store an object in the 
+There is simply an **_id** field, a **theaterId** field, and a **location** object.  Wait, did we just store an object in the 
 database?  We can expand the location field/object and see it is storing an address and embedding yet another object for
 its geolocation.  Working with data in this way, it is much easier than having to flatten out multiple tables from a 
 relational/tabular model in a single object.  
@@ -114,7 +114,7 @@ documents in the collection to derive a schema.  In addition to providing field 
 will also provide a summary of the data values and their distribution.
 
 After you click **Analyze Schema**, if you inspect the **location** field, you will notice that it contains a 
-**geolocation** field with GeoJSON coordinates, i.e. a longitude and latitude coordinate.  You can drill down on the
+**geo** field with GeoJSON coordinates, i.e. a longitude and latitude coordinate.  You can drill down on the
 map as it builds out a query for you.  It should resemble the image below:  
 
 ![](img/MongoDB_Compass_-_analyze.jpg)  
