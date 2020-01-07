@@ -119,6 +119,63 @@ map as it builds out a query for you.  It should resemble the image below:
 
 ![](img/MongoDB_Compass_-_analyze.jpg)  
 
+#### Query Data with MongoDB Compass (CRUD Operations) 
+Simply copy the code block for each section below and paste within the filter dialog in MongoDB Compass
+as indicated below.  Please pay close attention to the database/collection you have selected.  The various options
+can be expanded by clicking the **Options** button.
+
+![](img/compass_start.jpg)
+
+##### Find Operations
+* Simple filter (specific name in sample_mflix.comments collection) 
+
+```
+{ name : "Ned Stark" }
+```
+
+* Simple filter with query operators (email that ends in fakegmail.com and comment made since 2017 in sample_flix.comments) 
+```
+{ email: /fakegmail.com$/ , date : {$gte : ISODate('2017-01-01')}}
+``` 
+
+* Query sub-document/array (movies with more than 10 wins in sample_mflix.movies) 
+```
+{"awards.wins" : {$gt : 10}} 
+``` 
+
+* Query using the $in operator (Movies in Arabic or Welsh in sample_mflix.movies) 
+```
+{languages : {$in : ["Arabic", "Welsh"]}} 
+``` 
+
+* Only movies in Arabic 
+```
+{languages : ["Arabic"] } 
+``` 
+
+* Movies in BOTH Arabic and Spanish 
+```
+{languages : { $all : ["Arabic", "Spanish"]}}
+``` 
+
+* Movies with IMDB Rating > 8.0 and PG Rating 
+```
+{"imdb.rating": {$gt : 8.0 }, rated : "PG"} 
+``` 
+* Movies with Title starting with "Dr. Strangelove" 
+```
+{ title : /^Dr. Strangelove/ } 
+``` 
+
+##### Update, Delete, Clone Operations 
+Find a document in any collection and choose to update a field or fields. In fact, you can select to add a field that
+does not exist. Next, clone a document. Then, delete the cloned document. MongoDB Compass provides all the CRUD 
+controls you will need. Below is a sample image displaying where this capability is:
+
+![](img/compasscrud.jpg) 
+
+#### Create Indexes to Improve Efficiency of Queries - Part 1
+
 
 ### Lab 2 - Query Performance/Indexes
 #### Query Data with MongoDB Compass 
