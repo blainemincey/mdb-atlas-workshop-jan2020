@@ -174,11 +174,64 @@ controls you will need. Below is a sample image displaying where this capability
 
 ![](img/compasscrud.jpg) 
 
-#### Create Indexes to Improve Efficiency of Queries - Part 1
-
 
 ### Lab 2 - Query Performance/Indexes
-#### Query Data with MongoDB Compass 
+#### Create Indexes to Improve Efficiency of Queries
+
+Indexes support the efficient execution of queries in MongoDB. Without indexes, MongoDB must perform a 
+**collection scan**, i.e., scan every document in a collection to select those documents that match the query 
+statement. If an appropriate index exists for a query, MongoDB can use the index to limit the number of documents it 
+must inspect.
+
+In this lab, we will perform a search on a field, use the explain plan to determine if it could be improved 
+with an index, and create the index...all from within MongoDB Compass.
+
+For this lab, we will execute a query to find all movies with at least Drama as a genre.  Again, remain
+in the **sample_mflix** database within the **movies** collection.
+
+In the query box, enter:
+```
+{genres : "Drama" } 
+```
+Then, click the *Explain Plan** tab as indicated below: 
+![](img/compass-explain.jpg) 
+
+Click the **Execute Explain** button in the middle of the GUI and review the output.
+
+![](img/compass-noindex.jpg) 
+
+Considering this is a relatively small data size, an index may not immediately improve performance.  In our results, it 
+indicates a **collection scan** took place with our filter.  It also indicates the Actual Query Execution Time was 17ms.
+
+Click on the **Indexes** tab.  We will create an index on **genres**.  Find the field in the dropdown and select 'asc'
+as the index type.  Then, click the create button as indicated below.
+
+![](img/createidx.jpg)  
+
+After creating the index, go back to your **Explain Plan** tab and **Execute Explain** once more.  This time, you should 
+see that your index was used and instead of a collection scan, your filter performed an **index scan**.  Your results 
+should look similar to that below. 
+
+![](img/idx_used.jpg) 
+
+#### Performance Advisor Demonstration
+The [Performance Advisor](https://docs.atlas.mongodb.com/performance-advisor/) monitors queries that MongoDB considers 
+slow and suggests new indexes to improve query performance.  The Performance Advisor recognizes a query as slow if it 
+takes longer than **100 milliseconds** to execute.  The Performance Advisor does NOT negatively affect the 
+performance of your Atlas clusters.
+
+In order to demonstrate the Performance Advisor, we need to generate some poor performing queries against our 
+sample dataset within MongoDB Atlas.  We will take advantage of a project built specifically for generating slow running
+queries on our sample dataset, [https://github.com/robbertkauffman/mdb-slow-running-queries](https://github.com/robbertkauffman/mdb-slow-running-queries).  
+
+For purposes of the demonstration, a MongoDB Stitch application was created and is utilizing a Scheduled Trigger to generate
+a random poor performing query against our sample dataset.  While the Performance Advisor is scanning the logs, 
+we can take a look at the [MongoDB Atlas Query Profiler](https://docs.atlas.mongodb.com/tutorial/profile-database/).  This
+tool provides the ability to diagnose and monitor performance issues.  For example, the image below
+was taken while the slow running queries were executed to illustrate the metrics that can be reported.
+
+![](img/queryprofiler.jpg)  
+
 
 
 ### Lab 3 - Aggregation Framework Example 
