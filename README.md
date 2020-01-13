@@ -232,9 +232,71 @@ was taken while the slow running queries were executed to illustrate the metrics
 
 ![](img/queryprofiler.jpg)  
 
+TODO - Perf Advisor screen shot 
 
 
 ### Lab 3 - Aggregation Framework Example 
+MongoDB's [Aggregation Framework](https://docs.mongodb.com/manual/core/aggregation-pipeline/) is modeled on the concept
+of data processing pipelines.  Documents enter a multi-state pipeline that transforms the documents into an aggregated
+result.  For our next exercise, we will use the aggregation pipeline builder in MongoDB Compass to create an
+aggregation pipeline.
+
+We have been tasked with determining the most popular genres of movies that have been produced in the USA, Germany, and
+France since the year 2000.  Click on the **Aggregations** tab.  It should look similar to that below.
+
+![](img/agg1.jpg)  
+
+First, our pipeline will need to filter for movies with a country of USA, France, and Germany and have been produced since
+the year 2000.  This will be done with a **$match** operation.  In the first stage of the pipeline
+builder, select **$match** from the dropdown and paste the following:
+```
+{
+  countries : ["USA", "Germany", "France"],
+  year : {$gt : 2000 }
+}
+``` 
+
+MongoDB Compass should look similar to that below. 
+
+![](img/match.jpg)  
+
+You should observe that a preview of sample documents is on the right-hand side of the builder.  Now, we want to unwind
+the genres array as we want to count the most popular genres.  The next stage will be an **$unwind** operation on genres.
+Paste the following in the $unwind stage.
+```
+{
+    path: "$genres"
+}
+``` 
+
+Now, we want to group by the genres and count them.  This is done with the **$group** operator and the **$sum** operator.
+Copy/Paste the snippet below into the $group stage.
+```
+{
+  _id: "$genres",
+  genre: {
+    $sum: 1
+  }
+}
+``` 
+
+Finally, we will want to sort the result in a descending fashion so the most popular genre is the first element of our result.
+Can you figure out how to do that?  As a hint, the final overall pipeline will be the snippet that follows.
+```
+[
+    {
+        $match: {
+            countries : ["USA", "Germany", "France"],
+            year : {$gt : 2000 } }}, 
+        { $unwind: { path: "$genres" }}, 
+        { $group: { _id: "$genres",
+                   genre: { $sum: 1 } }}, 
+        { $sort: { "genre": -1 }
+    }
+]
+```
+This pipeline can then be saved if you would like to use it again at a later time.
+
 
 ---
 
@@ -248,7 +310,24 @@ was taken while the slow running queries were executed to illustrate the metrics
 ---
 
 ## 4.  MongoDB Stitch
+[MongoDB Stitch](https://docs.mongodb.com/stitch/) is a serverless platform that enables developers to quickly build applications
+without having to set up server infrastructure.  Stitch is built on top of MongoDB Atlas enabling it to
+automatically integrate the connection to your database.
+
+In this section of the Atlas Workshop, we will create our first MongoDB Stitch application in order to expose our
+sample data through a RESTful endpoint. 
+
 ### Lab 1 - Webhooks
+Our first step in exposing our sample data via a REST endpoint or rather a webhook is to create a MongoDB
+Stitch application.  First, click the **Stitch** menu option within our MongoDB Atlas UI in the lower left-hand
+section of the navigation.  Once this is clicked, then you will need to click the button **Create New Application**.
+We will name our application MyStitchApplication and we will keep the existing default selections.  Your UI should
+look like that below.  If it does, continue by clicking the **Create** button.
+
+![](img/newstitch.jpg) 
+
+
+
 
 ### Lab 2 - Query Anywhere 
 
