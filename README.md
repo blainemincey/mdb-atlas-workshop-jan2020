@@ -363,6 +363,22 @@ As we only have one cluster in our project, there’s only one data source to se
 
 ![](img/charts-005.jpg)
 
+Select the database **sample_mflix** by clicking in the arrorw next to it, then select the collections "comments" and "movies". Last, click on **Set Permissions**
+
+![](img/charts-006.jpg)
+
+Click the **Publish Data Source** button:
+
+![](img/charts-007.jpg)
+
+#### Create Dashboard
+
+Click on **Dashboards**:
+
+![](img/charts-008.jpg)
+
+Click on **Publish Data Source**
+
 ### Lab 2 - Embed a chart
 
 ---
