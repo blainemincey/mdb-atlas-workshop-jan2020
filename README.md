@@ -336,9 +336,16 @@ look like that below.  If it does, continue by clicking the **Create** button.
 ---
 
 ## 5.  MongoDB Charts
-### Lab 1 - 
+### Lab 1 - Visualize Your Data
+MongoDB Charts allows you to quickly and easily unlock the value in your data. Let's do some analysis on our NYC restaurant data:
 
-### Lab 2 - 
+#### Activate Charts
+
+Click the Charts menu under SERVICES on the left on the left:
+
+![](img/charts-001.jpg) 
+
+### Lab 2 - Embed a chart
 
 ---
 
