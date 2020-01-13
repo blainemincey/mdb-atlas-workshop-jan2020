@@ -345,6 +345,24 @@ Click the Charts menu under SERVICES on the left on the left:
 
 ![](img/charts-001.jpg) 
 
+Click on the "Activate MongoDB Charts" button as indicated below:
+
+![](img/charts-002.jpg)
+
+#### Define a Data Source for the Charts
+
+Select **Data Sources** from the menu at the top of the page.
+
+![](img/charts-003.jpg)
+
+Click add a **New Data Source**. 
+
+![](img/charts-004.jpg)
+
+As we only have one cluster in our project, there’s only one data source to select. Select the cluster and click connect as indicated by arrows 1 (one) and 2 (two):
+
+![](img/charts-005.jpg)
+
 ### Lab 2 - Embed a chart
 
 ---
