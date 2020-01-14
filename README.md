@@ -326,6 +326,134 @@ look like that below.  If it does, continue by clicking the **Create** button.
 
 ![](img/newstitch.jpg) 
 
+#### Create Stitch Function 
+We have performed a number of exercises with the **sample_mflix** database.  Within this database, there is a **users**
+collection.  If you have inspected this collection, you may have noticed that there is a unique index on the email field.  
+If we wanted to query for unique document, it would make sense that we will need to be able to retrieve a document based
+on the email field.  Let's create a function to find a user by their email.
+
+We will need to select the **Functions** option from the left-hand navigation and then click the **Create New Function**
+button as indicated below.
+
+![](img/stitchfunction.jpg) 
+
+When the function editor opens, you should name your function **getUserByEmailFunction**.  Keep the remaining defaults.
+Your function settings should look like that below.  When it does, click the **Save** button in the bottom-right corner.
+
+![](img/getuserfunction.jpg)  
+
+After saving, the Function Editor will open.  Copy and paste the code snippet below and click the **Save** button.
+```
+//
+// To test in console: exports('aidan_gillen@gameofthron.es')
+//
+exports = async function(arg) {
+  
+  console.log("Calling getUserByEmail Function.");
+  console.log("Find by email: " + arg);
+
+  var usersCollection = context.services.get("mongodb-atlas").db("sample_mflix").collection("users");
+  
+  const query = { "email": arg };
+
+  return usersCollection.findOne(query)
+    .then(result => {
+      if(result) {
+        console.log(`Successfully found document: ${result}.`)
+        return result;
+      } 
+      else {
+        console.log("No document matches the provided query.")
+        return {"Result" : "No document matches the provided id: " + arg}
+      }
+    })
+  .catch(err => console.error(`Failed to find document: ${err}`))
+};
+``` 
+Once the code has been pasted and saved, we can run a quick smoke test of our function.  In the comment section at the
+top of the code snippet, you can copy and paste in the Console tab at the bottom of the screen.  Remove the 'Hello World' 
+snippet in the console that is placed there by default.  It should look similar to this below after your edit.
+
+![](img/emailtest.jpg) 
+
+Click the **Run** button as indicated in the image above and the **Result** tab should become enabled with a result.
+If your test is successful, be sure to click the **Review & Deploy Changes** button at the top of the page.  It should
+look like the image below.
+
+![](img/reviewchanges.jpg) 
+
+The **Review & Deploy Changes** dialog will appear.  Simply click the **Deploy** button in the lower-right corner.
+
+
+#### Create HTTP Service
+Now that we have successfully tested our function, let's create an HTTP Service so we can interface with it via REST.
+First, click the **3rd Party Services** option in the left-hand navigation then the **Add a Service** button in the
+center of the page as indicated below.
+
+![](img/createservice.jpg) 
+
+Select **HTTP** from the Service options.  Name the service **myHttpService**.  
+![](img/httpservice.jpg) 
+
+Now, we will want to **Add Incoming Webhook**.  
+![](img/addwebhook.jpg) 
+
+Name the webhook **getUserByEmailWebhook**. Select **GET** as the HTTP Method.  Keep the remaining defaults similar
+to that below.
+
+![](img/getwebhook.jpg) 
+![](img/getwebhook2.jpg) 
+
+The Function Editor for our webhook will open.  Recall that earlier we create a function to find a user by their email.
+We will now interface with that function from our webhook.  Copy the code snippet below and paste into the function
+editor over the default code that is placed there.
+```
+// This function is the webhook's request handler.
+//
+// To test: exports({query: {email: 'sean_bean@gameofthron.es'}})
+exports = async function(payload, response) {
+  
+  console.log("Executing Webhook getUserByEmail.");
+  
+  // Query params, e.g. '?arg1=hello&arg2=world' => {arg1: "hello", arg2: "world"}
+  const {email} = payload.query;
+  
+  console.log("Query arg: " + email);
+  
+  // Calling a function:
+  return await context.functions.execute("getUserByEmailFunction", email);
+};
+```
+
+If you would like to quickly test this function, you can use the snippet that is in the comment section of the pasted
+code.  You will test it in exactly the same manner as we tested the earlier function that was created.  If your test
+is successful, let's interface with our REST API from a 3rd party tool!  Be sure to **Review & Deploy Changes** prior
+to testing externally!!!
+
+#### Test the GET Webhook
+Since this is a REST-based API, we can basically use just about any tool that we are comfortable with.  For example, one
+could test with a Python script, the command-line utility curl, or [Postman](https://www.getpostman.com/).
+
+MongoDB Stitch makes this incredibly easy.  If you click on the **Settings** tab for our webhook, it will provide the
+Webhook URL.
+![](img/webhookurl.jpg) 
+
+After you copy the Webhook URL, you can use your tool of choice.  Be sure to include the proper query parameter to the
+end of the request.  Our parameter is named **email** as defined in our Webhook Function.  An example would be:
+```
+email=sean_bean@gameofthron.es
+```
+Once you have the parameter defined, you can now test the GET service of your webhook.  An example curl command and
+result are provided below.  This exact command will NOT work for you as your Webhook URL will be entirely different!
+```
+curl https://webhooks.mongodb-stitch.com/api/client/v2.0/app/mystitchapplication-tlpid/service/myHttpService/incoming_webhook/getUserByEmailWebhook\?email=sean_bean@gameofthron.es
+{"_id":{"$oid":"59b99db4cfa9a34dcd7885b6"},"name":"Ned Stark","email":"sean_bean@gameofthron.es","password":"$2b$12$UREFwsRUoyF0CRqGNK0LzO0HM/jLhgUCNNIJ9RJAqMUQ74crlJ1Vu"}
+```
+#### Create POST Webhook
+
+
+
+
 
 
 
