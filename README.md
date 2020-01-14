@@ -51,8 +51,8 @@ tool that is part of the MongoDB Atlas User Interface.
     
 4.  MongoDB Stitch
     * Webhooks
-    * Query Anywhere
     * Triggers
+    * Query Anywhere
     
 5.  MongoDB Charts
 
@@ -232,8 +232,7 @@ was taken while the slow running queries were executed to illustrate the metrics
 
 ![](img/queryprofiler.jpg)  
 
-TODO - Perf Advisor screen shot 
-
+![](img/perfadvisor.jpg) 
 
 ### Lab 3 - Aggregation Framework Example 
 MongoDB's [Aggregation Framework](https://docs.mongodb.com/manual/core/aggregation-pipeline/) is modeled on the concept
@@ -450,16 +449,85 @@ curl https://webhooks.mongodb-stitch.com/api/client/v2.0/app/mystitchapplication
 {"_id":{"$oid":"59b99db4cfa9a34dcd7885b6"},"name":"Ned Stark","email":"sean_bean@gameofthron.es","password":"$2b$12$UREFwsRUoyF0CRqGNK0LzO0HM/jLhgUCNNIJ9RJAqMUQ74crlJ1Vu"}
 ```
 #### Create POST Webhook
+Not only will we require the ability to find existing users, we will want to add or POST new users to our users collection.
+In order to do this, we will need an additional Webhook.  We will follow the same pattern as we did for the GET Webhook
+created in an earlier step.  Again, click the **3rd Party Services** menu option in the left-hand navigation.  You
+should see your existing myHttpService that was created earlier.  Select or drill-down into the service.  There will
+be a listing of the **Incoming Webhooks**.  In particular, you should see the **getUserByEmailWebhook**.
+
+Click the button for **+ Add Incoming Webhook**.  Name the webhook **postNewUserWebhook**.  Keep the same defaults as
+the GET webhook created earlier except be sure to select the **POST** HTTP method.  Save the webhook and the 
+Function Editor will open.  Paste the code snippet below over the default code provided in the editor.
+```
+//
+exports = async function(payload) {
+  console.log("Executing New User Webhook.");
+  
+  //Accessing a mongodb service:
+  var collection = context.services.get("mongodb-atlas").db("sample_mflix").collection("users");
+    
+  var payloadBody = EJSON.parse(payload.body.text());
+  
+  if(payloadBody) {
+    
+      // create the new user document
+      // email is a unique index so it must be unique
+      var userDocument = {
+        name       : payloadBody.name,
+        email      : payloadBody.email,
+        password   : payloadBody.password,
+        birthdate  : new Date(payloadBody.birthdate),
+        updatedate : new Date()
+      };
+      
+      // insert the new user - use await to make sure it is inserted prior to finding it!
+      await collection.insertOne(userDocument).then(result => {
+        const {insertedId} = result;
+        console.log(`Inserted new user with _id: ${insertedId}`);
+      });
+      
+      // Let's return the complete new user document
+      return await context.functions.execute("getUserByEmailFunction", payloadBody.email);
+  }
+  else {
+    return {"Result" : "Invalid payload body."};
+  }
+      
+};
+```
+After saving the function, be sure to **Review & Deploy Changes** and then click the **Deploy** button.
+
+If you inspect the code, you will find that the webhook function will take the payload body and parse out the JSON.  Recall
+that the email address we use must be unique or the database will throw an error.  We will add an additional **updatedate**
+field as well.  Then, we insert this JSON and return the inserted document (did you remember to return a result in your
+webhook settings!) using the function we created earlier.
+
+#### Test the POST Webhook
+We have already tested our API using the GET HTTP method.  We will follow the same method to test our POST.  Once again,
+open the Settings of our POST webhook to find the associated URL.
+
+We will test with curl once more.  To make things a bit easier, below is the JSON document you can use to test with.
+```
+{ 
+    "name":"My New User", 
+    "email":"myNewUserEmail", 
+    "password":"mySecurePassword", 
+    "birthdate":"2001-06-13"
+}
+```
+In order to test with curl, you will need to be sure to include the Content-Type.  An example POST with result is below.
+If you are using Postman to test, it is even easier!
+```
+curl -H "Content-Type: application/json" \
+> -d '{ "name":"My New User", "email":"myNewUserEmail", "password":"mySecurePassword", "birthdate":"2001-06-13"}' \
+> https://webhooks.mongodb-stitch.com/api/client/v2.0/app/mystitchapplication-tlpid/service/myHttpService/incoming_webhook/postNewUserWebhook
+{"_id":{"$oid":"5e1d484957cc99991a988c0d"},"name":"My New User","email":"myNewUserEmail","password":"mySecurePassword","birthdate":{"$date":{"$numberLong":"992390400000"}},"updatedate":{"$date":{"$numberLong":"1578977353727"}}}
+```
 
 
+### Lab 2 - Triggers 
 
-
-
-
-
-### Lab 2 - Query Anywhere 
-
-### Lab 3 - Triggers
+### Lab 3 - Query Anywhere
 
 ---
 
