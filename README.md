@@ -56,8 +56,6 @@ tool that is part of the MongoDB Atlas User Interface.
     
 5.  MongoDB Charts
 
-6.  Code Samples
-
 ---
 
 # MongoDB Atlas Workshop 
@@ -642,6 +640,8 @@ This is an example of the final page.
 Refer to the online documentation for [Stitch Hosting](https://docs.mongodb.com/stitch/hosting/) and see if you can
 figure out how to deploy our sample HTMl page.
 
+Our example is running at https://mystitchapplication-tlpid.mongodbstitch.com/myHtmlPage.html.
+
 ---
 
 ## 5.  MongoDB Charts
@@ -727,5 +727,3 @@ XXXXXX
 ### Lab 2 - Embed a chart
 
 ---
-
-## 6.  Code Samples
