@@ -604,8 +604,43 @@ is today's month and today's date!  In order to verify it worked, you can verify
 as check the Logs.  Your Logs should look similar to that below.
 ![](img/newusertrigger.jpg) 
 
-
 ### Lab 3 - Query Anywhere
+In addition to providing capabilities around serverless functions and triggers, MongoDB Stitch also provides a number
+of Client SDKs allowing you to use Stitch Query Anywhere in your Android, iOS, and Web Applications.  Our next lab 
+will focus on using the [JavaScript Browser SDK](https://docs.mongodb.com/stitch-sdks/js/4/index.html) in a simple
+HTML page.
+
+MongoDB Stitch provides a number of examples from directly within the UI.  If you are in the MongoDB Stitch Console,
+click on the left-hand navigation **Clients**.  This page illustrates a number of examples.
+
+![](img/client.jpg) 
+
+In order to enable the use of anonymous login, we must enable the provider.  Click on **Users** in the left-hand navigation
+and then on the **Providers** tab.  Select to Edit the first listed provider **Allow users to log in anonymously**.
+![](img/anonymouslogin.jpg)
+
+After clicking the **Edit** button, toggle the **Provider Enabled** switch on the next page.  Be sure to **Save** your
+changes.  After clicking Save, is there another action that you need to perform?
+
+Next, in order to access our database/collection, we will need to create a **Rule** for permission to our birthday
+notifications data.  Click **Rules** on the left-hand side navigation, select **sample_mflix.birthdayNotifications**,
+keep the **No template** dropdown at the default, and then click **Configure Collection**.
+
+![](img/rule.jpg)  
+
+Enable Read/Write for All Additional Fields.  Click **Save**.  Anything else to do?  Yes, **Deploy** your changes!
+
+![](img/permission.jpg) 
+
+After this has been configured, refer to the example in the **src** directory of this GitHub Repo.  Inspect the source
+code.  The primary change you will need to make is to copy/paste YOUR Stitch Application ID.
+
+We will review the source together.  What if you would like to host this static web page within MongoDB Stitch?
+This is an example of the final page.
+![](img/webpage.jpg) 
+
+Refer to the online documentation for [Stitch Hosting](https://docs.mongodb.com/stitch/hosting/) and see if you can
+figure out how to deploy our sample HTMl page.
 
 ---
 
