@@ -373,11 +373,47 @@ Click the **Publish Data Source** button:
 
 #### Create Dashboard
 
+![](img/charts-008.jpg)
+
 Click on **Dashboards**:
 
 ![](img/charts-008.jpg)
 
-Click on **Publish Data Source**
+Enter **Title**, **Description** and click on **Create**:
+
+![](img/charts-010.jpg)
+
+Click on **Add Chart**:
+
+![](img/charts-011.jpg)
+
+Click on **Choose a Data Source**:
+
+![](img/charts-012.jpg)
+
+Click on **sample_mflix.movies** source to create our first chart:
+
+![](img/charts-013.jpg)
+
+Click on **Chart Type**,select the **Area** chart 1 (onwe) and click on **Discrete** 2 (two):
+
+![](img/charts-014.jpg)
+
+Drag **runtime** field (1) to the **Y axis**, click on **Aggregate** and select **MEAN** (2) two. Drag the field **Year** 3 (three), click **Binning on** and type 10 4(four)
+
+Filter the occurrences of year that are numeric integer fields, copy the following string into the filter section 5 (five) 
+
+ {$or :[{"year" : { $type : 16 }},{"year" : { $type : 18 }},{"year" : { $type : 1 }}]} 
+
+Change the title to "Average Movie Length by Decade"  6 (six) :
+
+![](img/charts-015.jpg)
+
+Click on customize to select a new color, if desired.
+
+Click **Save and Close**:
+
+XXXXXX
 
 ### Lab 2 - Embed a chart
 
