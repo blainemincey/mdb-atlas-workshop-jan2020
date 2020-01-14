@@ -526,6 +526,84 @@ curl -H "Content-Type: application/json" \
 
 
 ### Lab 2 - Triggers 
+[MongoDB Stitch Triggers](https://docs.mongodb.com/stitch/triggers/) enable you to execute application and database logic
+automatically, either in response to events or based on a pre-defined schedule.
+
+For our lab today, we will create a Trigger that will fire whenever a new user is added to our users collection.  In fact,
+for fun, let's say we need to contact new users if today happens to be their birthday! To 
+begin creating a trigger, click the **Triggers** option from the left-hand navigation and then click the **Add a Trigger**
+button in the center of the view.  It should look similar to that below.
+
+![](img/trigger.jpg) 
+
+After clicking the **Add a Trigger** button, select **Database** as the Trigger Type.  Name the trigger **newUserTrigger**.
+The trigger should be enabled with event ordering enabled.
+![](img/trigger2.jpg) 
+
+The **Trigger Source Details** should resemble that below.  Select **mongodb-atlas** as our cluster, **sample_mflix** as
+our database, **users* as our collection, click the **Insert** operation type, and then toggle **Full Document**.
+![](img/trigger3.jpg) 
+
+For our Function Details, select the **Function** Event Type, **+ New Function** for Function, name the function **newUserTriggerFunction**,
+and then click the **Save** button in the lower-right corner.
+![](img/trigger4.jpg)
+
+Now, select **Functions** from the left-hand navigation and then our **newUserTriggerFunction** so we can begin
+to edit the function.  Copy/paste the code snippet below into our Function Editor for the Trigger Function.
+```
+//
+// Trigger Function fired on insert.  If today is the birthday, celebrate!!
+//
+exports = function(changeEvent) {
+  console.log("Executing newUserTriggerFunction.");
+  
+  if(changeEvent.operationType === 'insert') {
+    console.log("Insert operation.");
+    
+    const { birthdate } = changeEvent.fullDocument;
+    
+    // Grab the month and day today
+    var today = new Date();
+    var monthToday = today.getMonth();
+    var dayToday = today.getDate();
+    
+    // Grab the birth month and birth day
+    var birthMonth = birthdate.getMonth();
+    var birthDay   = birthdate.getDate();
+    
+    // If all things are equal, Birthday!!
+    if(monthToday === birthMonth && dayToday === birthDay){
+      
+      var message = "Time to celebrate!  It's your Birthday!!!";
+      
+      console.log(message);
+      
+      const{name,email} = changeEvent.fullDocument;
+      
+      birthdayNotificationDocument = {
+        name           : name,
+        email          : email,
+        message        : message,
+        notificationTs : new Date()
+      };
+       
+      var collection = context.services.get("mongodb-atlas").db("sample_mflix").collection("birthdayNotifications");
+      
+      collection.insertOne(birthdayNotificationDocument).then(result => {
+        const {insertedId} = result;
+        console.log(`Inserted new notification with _id: ${insertedId}`);
+      })
+    }
+  }
+};
+```
+After saving the function, do not forget to **Review & Deploy Changes** and then **Deploy**.
+
+In order to test our trigger, attempt to use our POST webhook created earlier except be sure to use a birthdate that
+is today's month and today's date!  In order to verify it worked, you can verify a new collection was created as well
+as check the Logs.  Your Logs should look similar to that below.
+![](img/newusertrigger.jpg) 
+
 
 ### Lab 3 - Query Anywhere
 
