@@ -766,10 +766,26 @@ Change the title to "Average Movie Length by Decade"  6 (six) :
 
 Click on customize to select a new color, if desired.
 
-Click **Save and Close**:
+Now, let's create a new charts:
 
-XXXXXX
 
-### Lab 2 - Embed a chart
+  
+In order to create a chart showing the metacritic score by country:
+
+![](img/charts-016.jpg)
+   
+
+Create a chart showing average lenght by genre:
+
+![](img/charts-017.jpg)
+   
+    
+Create a chart showing the actors by the number of comments and metacritic score:
+
+
+![](img/charts-018.jpg)
+   
+   
+
 
 ---
