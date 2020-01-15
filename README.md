@@ -298,11 +298,24 @@ This pipeline can then be saved if you would like to use it again at a later tim
 ---
 
 ## 3.  MongoDB Atlas Operations 
+
 ### Lab 1 - Continuous Backup
+
+In order to have maximum flexibility in terms of backup policies and features is to deploy a MongoDB 4.0 cluster that is an M30 or larger
+
+![](img/backup-001.jpg)  
+![](img/backup-002.jpg)  
+![](img/backup-003.jpg)  
+![](img/backup-004.jpg)  
 
 ### Lab 2 - Cluster Snapshots 
 
 ### Lab 3 - Point-in-Time Restore
+![](img/backup-005.jpg)  
+![](img/backup-006.jpg)  
+![](img/backup-007.jpg)  
+![](img/backup-008.jpg)  
+![](img/backup-009.jpg)  
 
 ---
 
