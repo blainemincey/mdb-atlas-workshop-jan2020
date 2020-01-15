@@ -307,13 +307,16 @@ MongoDB Atlas users can choose Continuous Backup or Cluster Snapshots.
 
 ![](img/backup-001.jpg)  
 
+
 ### Lab 2 - Cluster Snapshots 
 
 When using AWS and doing Cluster Snapshots with MongoDB 4.0 users can choose "Cluster Provided Snapshots" and the option of enabling "Point in Time Restores"
 
 ![](img/backup-002.jpg)  
 
+
 It is important to point out that currently MongoDB Atlas 4.2 does not yet support "Point in Time Restores"
+
 ![](img/backup-003.jpg)  
 
 
@@ -322,21 +325,26 @@ In order to do a "Point in Time Restore", the first step is to go to the Atlas d
 
 ![](img/backup-004.jpg)  
 
+
 Select the cluster whose data is going to be backed up, by clicking on the ellipsis "..." and choosing "Restore" as indicated below.
 
 ![](img/backup-005.jpg)  
+
 
 Click on "Point in Time" and then select the date that we wish to restore data  to. This is our exact date and time, as indicated below:
 
 ![](img/backup-006.jpg)  
 
+
 Then we need to decide where the data will be restored to. We can choose the same or a different cluster. 
 
 ![](img/backup-007.jpg)  
 
+
 The data in the target clster will be erased by the restore process. Choose a cluster as indicated below:
 
 ![](img/backup-008.jpg)  
+
 
 The last step is to click "Confirm and Continue" as indicated below:
 
