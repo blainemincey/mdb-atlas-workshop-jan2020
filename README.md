@@ -303,14 +303,23 @@ This pipeline can then be saved if you would like to use it again at a later tim
 
 In order to have maximum flexibility in terms of backup policies and features is to deploy a MongoDB 4.0 cluster that is an M30 or larger
 
+MongoDB Atlas users can choose Continuous Backup or Cluster Snapshots.
+
 ![](img/backup-001.jpg)  
-![](img/backup-002.jpg)  
-![](img/backup-003.jpg)  
-![](img/backup-004.jpg)  
 
 ### Lab 2 - Cluster Snapshots 
 
+When using AWS and doing Cluster Snapshots with MongoDB 4.0 users can choose "Cluster Provided Snapshots" and the option of enabling "Point in Time Restores"
+![](img/backup-002.jpg)  
+
+It is important to point out that currently MongoDB Atlas 4.2 does not yet support "Point in Time Restores"
+![](img/backup-003.jpg)  
+
+
 ### Lab 3 - Point-in-Time Restore
+In order to do a "Point in Time Restore", the first step is to go to the Atlas dashboard and to click on "Continuous Backup" as indicated:
+![](img/backup-004.jpg)  
+
 ![](img/backup-005.jpg)  
 ![](img/backup-006.jpg)  
 ![](img/backup-007.jpg)  
